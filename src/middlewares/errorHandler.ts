@@ -3,8 +3,8 @@ import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 
 export function logErrors(error: Error, req: Request, res: Response, next: NextFunction) {
-    console.log(typeof Error);
-    console.table(error);
+    // console.log(typeof Error);
+    console.log(error.message);
     next(error)
 }
 

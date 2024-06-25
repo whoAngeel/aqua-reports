@@ -1,13 +1,13 @@
 
 import { NextFunction, Request, Response } from "express"
-import { insertCar, findCar, findCars } from "../services/item.service"
-import { Car } from "../interfaces/car.interface"
+import { insertCar, findCar, findCars, updateCar, deleteCar } from "../services/item.service"
 
 export const getItem = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const {id} = req.params
+        const { id } = req.params
         const rta = await findCar(id)
-        return rta
+        const data = rta ? rta : { message: "NOT_FOUND" }
+        res.send(data)
 
     } catch (error) {
         next(error)
@@ -29,7 +29,7 @@ export const getItems = async (req: Request, res: Response, next: NextFunction) 
 export const postItem = async (req: Request, res: Response, next: NextFunction) => {
     try {
         console.table(req.body);
-        
+
         const newItem = await insertCar(req.body)
         res.status(201).send(newItem)
     } catch (error) {
@@ -41,6 +41,11 @@ export const postItem = async (req: Request, res: Response, next: NextFunction) 
 export const updateItem = async (req: Request, res: Response, next: NextFunction) => {
     try {
 
+        const { id } = req.params
+        const data = req.body
+        const rta = await updateCar(id, data)
+        res.json(rta)
+
     } catch (error) {
         next(error)
     }
@@ -49,6 +54,9 @@ export const updateItem = async (req: Request, res: Response, next: NextFunction
 
 export const deleteItem = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const { id } = req.params
+        const rta = await deleteCar(id)
+        res.json(rta)
 
     } catch (error) {
         next(error)
