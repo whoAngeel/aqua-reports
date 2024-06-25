@@ -1,15 +1,13 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
+import { deleteItem, getItem, getItems, postItem, updateItem } from "../controllers/item";
 
 const router = Router()
 
-router.get('/', (req:Request, res: Response)=>{
-    try {
-        res.send({
-            data: "Aqui van los modelos"
-        })
-    } catch (error) {
-        
-    }
-})
+router.get('/', getItems)
+router.get('/:id', getItem)
+router.post('/', postItem)
+router.patch('/:id', updateItem)
+router.delete('/:id', deleteItem)
+
 
 export default router
