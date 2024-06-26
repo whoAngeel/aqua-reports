@@ -22,10 +22,7 @@ const findCar = async (id: string) => {
         throw boom.notFound("Item not found")
     }
     return car
-
 }
-
-
 
 const updateCar = async (id: string, data: Object) => {
     const updatedCar = await ItemModel.findByIdAndUpdate(id, data, { new: true })
