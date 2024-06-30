@@ -1,5 +1,5 @@
 import { Model, Schema, model } from "mongoose";
-import { ILocation, User } from "../interfaces/user.type";
+import { ILocation, IUser } from "../interfaces/user.type";
 
 const LocationSchema = new Schema<ILocation>({
     address: {
@@ -9,11 +9,10 @@ const LocationSchema = new Schema<ILocation>({
     municipality: String,
     postalCode: String
 }, {
-    timestamps: true,
     versionKey: false
 })
 
-const UserSchema = new Schema<User>({
+const UserSchema = new Schema<IUser>({
 
     fullname: {
         type: String,
@@ -44,5 +43,8 @@ const UserSchema = new Schema<User>({
     versionKey: false
 })
 
+
 const UserModel = model('users', UserSchema)
-export default UserModel
+export  {
+    UserModel
+}

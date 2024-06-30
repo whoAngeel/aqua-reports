@@ -1,7 +1,6 @@
 import { Application, Router } from "express";
-import ItemsRouter from './item'
-import {readdirSync} from 'fs'
-
+import UsersRouter from '../routes/users';
+import AuthRoutes from '../routes/auth.routes';
 // const PATH_ROUTER = `${__dirname}`
 
 // const router = Router()
@@ -12,7 +11,8 @@ import {readdirSync} from 'fs'
 
 export function useAPIRoutes(app: Application){
     const router = Router()
-    router.use('/items', ItemsRouter)
+    router.use('/users', UsersRouter)
+    router.use('/auth', AuthRoutes)
     app.use(router)
 }
 

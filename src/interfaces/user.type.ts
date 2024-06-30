@@ -5,10 +5,15 @@ export interface ILocation{
     postalCode?: string
 }
 
-export interface User{
+export interface IUser{
     fullname: string,
     email: string,
     password: string,
     role: string
     location: ILocation
 } 
+
+export interface IAuth{
+    email: string,
+    password: string
+}
