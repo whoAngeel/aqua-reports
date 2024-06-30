@@ -1,10 +1,14 @@
+export interface ILocation{
+    address: string,
+    state: string,
+    municipality: string,
+    postalCode?: string
+}
+
 export interface User{
-    username:  string,
-    firstname: string,
-    lastname: string,
+    fullname: string,
     email: string,
     password: string,
     role: string
-    
-
-}
+    location: ILocation
+} 
