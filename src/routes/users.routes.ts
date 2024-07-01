@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUsers, postUser } from "../controllers/user";
+import { getUsers, postUser } from '../controllers/user.controller';
 import passport from "passport";
 import { checkRoles } from "../middlewares/auth.handler";
 

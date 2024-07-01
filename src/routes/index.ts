@@ -1,6 +1,7 @@
 import { Application, Router } from "express";
 import UsersRouter from './users.routes';
 import AuthRoutes from './auth.routes';
+import ReportsRouter from './reports.routes';
 // const PATH_ROUTER = `${__dirname}`
 
 // const router = Router()
@@ -13,6 +14,7 @@ export function useAPIRoutes(app: Application){
     const router = Router()
     router.use('/users', UsersRouter)
     router.use('/auth', AuthRoutes)
+    router.use('/reports', ReportsRouter)
     app.use(router)
 }
 
