@@ -14,7 +14,6 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 export const login =  async (req: Request, res: Response, next: NextFunction) => {
     try {
         const {password, email} = req.body
-        console.log(login, password);
         const rta = await loginUser(email, password)
         return res.json(rta)
     } catch (error) {
