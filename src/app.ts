@@ -13,6 +13,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
 import './config/mongo'
+import './utils/auth'
 
 useAPIRoutes(app)
 

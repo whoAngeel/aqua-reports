@@ -1,6 +1,6 @@
 import { Application, Router } from "express";
-import UsersRouter from '../routes/users';
-import AuthRoutes from '../routes/auth.routes';
+import UsersRouter from './users.routes';
+import AuthRoutes from './auth.routes';
 // const PATH_ROUTER = `${__dirname}`
 
 // const router = Router()
