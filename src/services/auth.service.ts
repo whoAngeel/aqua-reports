@@ -2,7 +2,7 @@ import { IUser } from "../interfaces/user.type";
 import { hash, compare } from 'bcrypt';
 import { UserModel } from "../models/user";
 import { notAcceptable, notFound, unauthorized, } from "@hapi/boom";
-import { generateToken } from "../utils/jwt.handle";
+import { generateToken } from "../utils/auth/jwt.handle";
 export const registerNewUser = async (data: IUser) => {
 
     const emailExists = await UserModel.findOne({ email: data.email })
@@ -27,5 +27,5 @@ export const loginUser = async (email: string, password: string) => {
     const isValid = await compare(password, user.password)
     if (!isValid) throw unauthorized("Credenciales invalidas")
     const token = generateToken(user.id, user.role)
-    return {user, token: token}
+    return {user, token}
 }
