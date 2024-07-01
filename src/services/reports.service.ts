@@ -12,7 +12,7 @@ export async function create(report: IReport) {
 }
 
 export async function findAll() {
-    const reports = await ReportModel.find()
+    const reports = await ReportModel.find({status: {$ne: 'closed'}})
     return reports
 }
 
@@ -35,7 +35,7 @@ export async function updateStatus(id: string, status: 'pending' | 'resolved' | 
 }
 
 export async function updateReport(id: string, reportData: Partial<IReport>, description: string) {
-    const report = await ReportModel.findByIdAndUpdate(id,reportData, {new: true})  
+    const report = await ReportModel.findByIdAndUpdate(id, reportData, { new: true })
     if (!report) throw notFound()
     if (report.history) {
         report.history.push({ description, date: new Date() });
@@ -53,4 +53,13 @@ export async function findByMunicipality(municipality: string) {
 export async function findByState(state: string) {
     const reports = await ReportModel.find({ location: { state } })
     return reports
+}
+
+export async function softDelete(id: string) {
+    const report = await ReportModel.findByIdAndUpdate(id, { status: 'closed' }, { new: true })
+    if (!report) throw notFound()
+    if (report.history) {
+        report.history.push({ description: 'Se ha cerrado el reporte', date: new Date() });
+    }
+    return report
 }
