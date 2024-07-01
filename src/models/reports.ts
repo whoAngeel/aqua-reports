@@ -6,18 +6,22 @@ const ReportSchema = new Schema<IReport>({
         type: String,
         required: true
     },
-    type: String,
+    type: String, // * se pue de quitar
     status: {
         type: String,
         enum: ['pending', 'resolved', 'rejected', 'false', 'closed', 'cannot be resolved'],
         default: 'pending'
     },
     reportedBy: {
-        type: Schema.Types.ObjectId, 
-        ref: 'users', 
+        type: Schema.Types.ObjectId,
+        ref: 'users',
         required: true
     },
-    images: [String],
+    images: [{
+
+        description: String,
+        url: String
+    }],
     priority: {
         type: String,
         enum: ['low', 'medium', 'high'],
@@ -29,7 +33,11 @@ const ReportSchema = new Schema<IReport>({
         municipality: String,
         latitude: Number,
         longitude: Number
-    }
+    },
+    history:[{
+        description: String,
+        date: Date
+    }]
 
 }, {
     timestamps: true,

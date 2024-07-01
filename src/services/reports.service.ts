@@ -3,9 +3,10 @@ import { IReport } from "../interfaces/report.type";
 import { ReportModel } from '../models/reports';
 import { notFound } from '@hapi/boom';
 
-export async function create(report: IReport) {
+export async function create(userId:string,report: IReport) {
     const newReport = await ReportModel.create({
         ...report,
+        reportedBy: userId,
         history: [{ description: 'Se ha creado el reporte', date: new Date() }]
     })
     return newReport
@@ -28,7 +29,6 @@ export async function updateStatus(id: string, status: 'pending' | 'resolved' | 
     if (report.history) {
         report.history.push({ description, date: new Date() });
     }
-    else report.history = [{ description, date: new Date() }]
 
     await report.save()
     return report
