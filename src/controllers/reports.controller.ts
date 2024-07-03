@@ -23,12 +23,27 @@ export const getReport = async (req: Request, res: Response, next: NextFunction)
 
 }
 
-
+export const postImage = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { file } = req
+        const dataToRegister = {
+            url: `${file?.path}`,
+        }
+        return res.json({
+            message: "Subiendo imagen",
+            dataToRegister
+        })
+    } catch (error) {
+        next(error)
+    }
+}
 export const postReport = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data = req.body
-        const user = req.user as { id: string, role: string }
-        const rta = await create(user.id, data)
+        const { file } = req
+        const user = req.user as { id: string, role: string };
+        const rta = await create(user.id, { ...data, images: { url: `${file?.path}`, description: 'imagen del reporte' } });
+
         return res.status(201).json(rta)
     } catch (error) {
         next(error)
