@@ -12,6 +12,6 @@ router.get('/login/google', passport.authenticate('google', {
     scope: ['email', 'profile'],
     session: false
 }), googleLogin)
-router.get('/login/google/callback', passport.authenticate('google'), googleCallback)
+router.get('/login/google/callback', passport.authenticate('google', { session: false }), googleCallback)
 
 export default router

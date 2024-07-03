@@ -6,9 +6,10 @@ export interface ILocation{
 }
 
 export interface IUser{
+    id?: string
     fullname: string,
     email: string,
-    password: string,
+    password: string 
     role: string
     location: ILocation
 } 

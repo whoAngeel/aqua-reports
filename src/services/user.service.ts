@@ -18,19 +18,21 @@ export const findByEmail = async (email: string) => {
 }
 
 
-export const findOrCreate = async(email: string, profile: any)=>{
-    const user = await findByEmail(email)
-    if(!user){
-        // const newUser = await register({email})
-        console.log('creando usuario');
-        const newUser = await User.create({
-            email,
-            fullname: profile.displayName
+export const findOrCreate = async (data: Partial<IUser>) => {
+    try {
+        const user = await User.findOne({ email: data.email });
 
-        })
-        if(!newUser) throw badData('No se pudo crear el usuario')
-        // return newUser
+        if (!user) {
+            console.log('Creando usuario');
+            const newUser = await User.create(data);
+            if (!newUser) throw badData('No se pudo crear el usuario');
+            return newUser;
+        } else {
+            return user;
+        }
+    } catch (error) {
+        console.error('Error en findOrCreate:', error);
+        throw error;
     }
-    console.log('usuario encontrado');
-    return user
+    // console.log('usuario encontrado');
 }

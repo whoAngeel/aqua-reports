@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { loginUser, registerNewUser } from "../services/auth.service";
+import { loginUser, registerNewUser, signToken } from "../services/auth.service";
+import { IUser } from "../interfaces/user.type";
 
 export const register = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -23,9 +24,11 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
 export const googleLogin = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.status(200).json({
-            message: "Hola de google login"
-        })
+        // const user = req.user as { id: string, role: string }
+        const user = req.user
+        console.log(user)
+        // const token = signToken(user)
+        res.status(200).json(user)
     } catch (error) {
         next(error)
     }
@@ -33,7 +36,12 @@ export const googleLogin = async (req: Request, res: Response, next: NextFunctio
 
 export const googleCallback = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.send('ok')
+        // const user = req.user as { id: string, role: string }
+        const user = req.user
+        console.log('usuario',user)
+
+        const token = signToken(user)
+        res.status(200).json(token)
     } catch (error) {
         next(error)
     }
